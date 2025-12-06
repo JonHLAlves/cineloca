@@ -12,13 +12,14 @@ def init_app(app):
     def create_cliente():
         data = request.get_json()
         
-        if not data or not data.get('nome') or not data.get('email'):
-            return jsonify({"error": "Nome e Email são obrigatórios"}), 400
+        if not data or not data.get('nome') or not data.get('email') or not data.get('password'):
+            return jsonify({"error": "Nome, Senha e Email são obrigatórios"}), 400
 
         novo_cliente = Cliente(
             nome=data.get('nome'),
             email=data.get('email'),
-            telefone=data.get('telefone')
+            telefone=data.get('telefone'),
+            password = data.get('password')
         )
         
         try:

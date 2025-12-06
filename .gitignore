@@ -1,4 +1,6 @@
 postgres/
+info/
+design/
 
 # Logs
 logs

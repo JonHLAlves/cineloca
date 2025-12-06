@@ -1,15 +1,21 @@
 from . import db
+from flask_bcrypt import generate_password_hash, check_password_hash
 
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     telefone = db.Column(db.String(20), nullable=True)
+    display_name = db.Column(db.String(100), nullable=True)
+    password_hash = db.Column(db.String(512), nullable=False)
     
-    def __init__(self, nome, email, telefone=None):
+    def __init__(self, nome, email, password, telefone=None):
         self.nome = nome
         self.email = email
         self.telefone = telefone
+        self.display_name = nome
+        self.password_hash = generate_password_hash(password).decode('utf-8')
+
 
     def to_json(self):
         return {
